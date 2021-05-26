@@ -1,0 +1,64 @@
+{% extends 'basic_admin.html'%}
+{% load static%}
+
+
+{%block content %}
+
+    <br/>
+                    <div class="row" style="margin-left:20px;">
+                        <table class="table" id ="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                   
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Buyer</th>
+                                    <th scope="col">Buyer details</th>
+                                    <th scope="col">Buy On</th>
+                                    <th scope="col">Seller</th>
+                                    
+                                 
+                                </tr>
+                            </thead>
+                            <tbody id="items">  
+                                {% for i in o_mac %}
+                                    {% with item=i.item_json %}
+                                                
+                                                {% for key,value in item.items %}
+                                                    
+                                                    <tr>
+                                                  
+                                                        <td>{{value.1}}</td>
+                                                        <td>{{value.0}}</td>
+                                                        <td>{{value.2}}</td>
+                                                        <td>{% widthratio i.amount 100 1 %}</td>
+                                                        <td>{{i.userid}}</td>
+                                                        <td>Name : {{i.name}} <br/> Type : {{i.address}} <br/> Mobile Number:{{i.phone}} <br/> Email:{{i.email}}</td>
+                                                        <td>{{i.order_date}}</td>
+                                                        <td>{{value.3}}</td>
+                                                  
+                                                    </tr>
+                                                    
+                                                {% endfor %}
+                                            
+                                            {% endwith %}
+                                          
+                                        {% endfor %}
+                                        
+                           
+                                {% for i in order_c %}
+                                    
+                                                 
+                                                 
+                                      
+                                {% endfor %}
+                         
+                            </tbody>
+                        </table>
+                    </div>    
+         
+
+
+{% endblock%}

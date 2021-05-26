@@ -1,0 +1,226 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+
+{% block title %}cart Agriculture Product {% endblock %}
+
+{% block style %}
+#head{
+  margin-top:40px !important;
+}
+.main-menu ul>li a{
+  font-size: 20px !important;
+   padding: 25px !important;
+}
+.modal-backdrop{
+    opacity:0.5;
+}
+
+{% endblock %}
+
+
+{% block navlist %}
+ <div class="row">
+     <div class="col-md-12 location_icon_bottum" >
+         <div class="row">
+             <div class="col-md-8 ">
+                 <div class="menu-area">
+                     <div class="limit-box">
+                         <nav class="main-menu">
+                             <ul class="menu-area-main">
+                                 <li><a href="#">Home</a> </li>
+                                 <li><a href="/agri/buy_agri" data-filter="all">buy agriculture</a> </li>
+                             </ul>
+                         </nav>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
+{% endblock %}
+
+
+
+{% block nav2 %}
+<ul><li><a href="/farmer" style="color:#4bc714; font-size:20px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+    <a href="/profile/farmer_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-15%;" aria-hidden="true"></i></a><br/><a href="/profile/farmer_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-0.8%; ">My Profile</a></li></ul>
+<a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+
+{% block body %}
+ <div id="head">
+     <h1> Cart </h1>
+ </div>
+
+
+
+<div class=" p-4 m-4">
+    <h3 class="display-4 ml-4 pl-4"><b> Your Cart</b></h3>
+    <table class="table" id ="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Sr.No.</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="items">
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3"></th>
+                <th>Total</th>
+                <th id="total"></th>
+                <th><a href="#" class="btn btn-primary rounded col-log-3 float-right" onclick="clearCart()">Remove All</a></th>
+            </tr>
+        </tfoot>
+    </table>
+    <div  class="m-3 p-3" id="check">
+        <button type="button" class="btn btn-primary rounded col-log-3 float-right" data-target="#checkform" data-toggle="modal">Place Order</button>
+    </div>
+    <div class="modal" id="checkform">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3> Enter Address and other details </h3>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form class="row g-3" method="post" action="">{% csrf_token%}
+                        <input type="hidden" id="itemsJson" name="itemsJson">
+                        <input type="hidden" id="amount" name="amount">
+                        <div class="col-md-6">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{user.uname}}" placeholder="Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" placeholder="Email">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address" value="{{user.address}}" placeholder="abc Main St">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" value="{{user.city}}" placeholder="city">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" id="state" name="state" value="{{user.state}}" placeholder="state">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">Zip</label>
+                            <input type="text" class="form-control" id="zip_code" value="{{user.zipcode}}" name="zip_code">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="{{user.Mobile_no}}" placeholder="phone">
+                        </div>
+                        <div class="col-12">
+                            <center><button type="submit" class="btn btn-primary" > Place Order </button></center>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    {% if payment %}
+    <div class="container mx-auto text-center mt-4" >
+        <form action="success_agri" method="POST">{% csrf_token%}
+            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                    data-key="rzp_test_KwMGHCikCcZ1ZJ"
+                    data-amount="{{payment.amount}}"
+                    data-currency="INR"
+                    data-order_id="{{ payment.id }}"
+                    data-buttontext="Pay with Razorpay"
+                    data-name="buy crop Corp"
+                    data-description="Thanks for buying Crop Product"
+                    data-image="{% static 'images/smartlogo.png' %}"
+                    data-prefill.name="{{user.uname}}"
+                    data-theme.color="#F37254"
+            ></script>
+            <input type="hidden"  name="hidden">
+        </form>
+    </div>
+
+    {%endif%}
+
+
+
+      <br><br>
+
+
+
+{% endblock %}
+
+
+{% block script %}
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+    var sum=0;
+        if(localStorage.getItem('cart_agri') == null){
+            var cart_agri = {};
+        }
+        else{
+            cart_agri = JSON.parse(localStorage.getItem('cart_agri'));
+        }
+
+        if ($.isEmptyObject(cart_agri)) {
+            mystr = document.getElementById('table').innerHTML = "<center> <img src='{% static 'images/empty-cart.png' %}'><br><h2>Your cart is empty </h2></center> "
+            $('#items').append(mystr);
+            document.getElementById('check').innerHTML = " ";
+
+
+        }
+        else{
+            var i=1;
+            for(item in cart_agri){
+                var name = cart_agri[item][1];
+                var qty = cart_agri[item][0];
+                var price = cart_agri[item][2];
+                var item = item;
+
+                sum = sum + qty*price;
+                mystr = `<tr>
+                            <td>${i}</td>
+                            <td>${name}</td>
+                            <td>${qty}</td>
+                            <td>₹${price}</td>
+                            <td>₹${qty*price}</td>
+                            <td><a id="remove"  class="btn btn-primary rounded col-log-3 float-right">Remove</a><td>
+                        </tr>`
+                $('#items').append(mystr);
+                i+=1;
+            }
+            $('#total').append('₹'+sum);
+        }
+        function clearCart(){
+            cart_agri = JSON.parse(localStorage.getItem('cart_agri'));
+            for(item in cart_agri){
+                document.getElementById('table').innerHTML = "<center> <img src='{% static 'images/empty-cart.png' %}'><br><h2>Your cart is empty </h2></center> ";
+                document.getElementById('check').innerHTML = " ";
+            }
+            localStorage.clear();
+            cart_agri = {};
+            updateCart(cart_agri);
+        }
+        $('#itemsJson').val(JSON.stringify(cart_agri));
+        {% if thank %}
+            localStorage.clear();
+            //document.location = "/farmers/buy_agri";
+        {% endif %}
+
+
+    $('#amount').val(sum);
+    </script>
+{% endblock %}

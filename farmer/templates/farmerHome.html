@@ -1,0 +1,114 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+{% block title %}
+    Farmer
+{% endblock %}
+
+
+{% block nav2 %}
+  <ul><li><a href="/farmer" style="color:#4bc714; font-size:18px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+  <a href="/profile/farmer_profile/f_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-14%;" aria-hidden="true"></i></a><br/><a href="/profile/farmer_profile/f_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-1%; ">My Profile</a></li></ul>
+  <a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+
+
+{% block body %}
+ <div class="jumbotron">
+  <div class="container">
+  <div class="row">
+      <div class="col-md-3 mx-auto">
+        <div class="card  mx-2" style="width: 16rem;">
+          <img src="{%static 'img/sellP.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+          <h3 class="card-title">Sell Product at your price</h3>
+          <h5 class="card-text">
+          Add your product for sell and get best price.
+          </h5><br>
+          <center><a href="/crop/add_crop" class="btn btn-success">Add Product</a></center>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <div class="card  mx-2" style="width: 16rem;">
+          <img src="{%static 'img/machine.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">Machine on rent</h3>
+            <h5 class="card-text">
+              Provide your machine and get machine on rent.
+            </h5><br>
+            <center><a href="/farmer/m" class="btn btn-success">Machines</a></center>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <div class="card  mx-2" style="width: 16rem;">
+          <img src="{%static 'img/price.jpeg'%}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h3 class="card-title">See Price In Market Yard</h3>
+              <h5 class="card-text">
+                Get price of products in all markets nearby you.
+              </h5><br>
+                <center><a href="/marketprice/search_mprice" class="btn btn-success">Market-Yard Price</a></center>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <div class="card mx-2" style="width: 16rem;">
+          <img src="{%static 'img/buyP.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">Buy Agriculure Product</h3>
+            <h5 class="card-text">
+              Buy Agriculture Products like seeds, fertilizers, Pesticides, organic fertilizers and machines.
+            </h5><br>
+            <center><a href="/agri/buy_agri" class="btn btn-success">Buy Now</a></center>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+  <div class="col-md-3 mx-auto">
+        <div class="card my-3 mx-2" style="width: 16rem;">
+          <img src="{%static 'img/guidelines.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">Guidelines</h3>
+            <h5 class="card-text">
+              Get guidelines about good seeds, fertilizers and pestisides for crops.
+            </h5><br>
+            <center><a href="/farmer/crop_guid" class="btn btn-success">Guidelines</a></center>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <div class="card my-3 mx-2" style="width: 16rem;">
+          <img src="{%static 'img/govS.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">Government schemes</h3>
+            <h5 class="card-text">
+              Get guidelines about latest government schemes and apply for it.
+            </h5><br>
+            <center><a href="/farmer/govschema" class="btn btn-success">Schemes</a></center>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 mx-auto">
+        <div class="card my-3 mx-2" style="width: 16rem;">
+          <img src="{%static 'img/loan.jpeg'%}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">LOAN</h3>
+            <h5 class="card-text">
+              Get guidelines about loan.
+            </h5><br>
+            <center><a href="/farmer/loan" class="btn btn-success">Loan</a></center>
+          </div>
+        </div>
+      </div>
+
+      </div>
+  </div>
+  </div>
+
+{% endblock %}

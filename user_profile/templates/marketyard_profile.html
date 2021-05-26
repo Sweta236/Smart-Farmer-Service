@@ -1,0 +1,67 @@
+{% extends 'profile_base.html' %}
+
+  {% block profile_nav %}
+	<li class="mx-auto"><a href="/mprice/add_marketPrice" style="margin-top:25px;">Home</a> </li>
+  {% endblock %}
+
+{% block homelink %}
+<ul><li class="mx-auto"><a href="/marketprice/add_mprice" style="margin-top:0px; color:white; float:right; margin-right : 0px; font-size:18px; ">Home</a> </li></ul>
+{% endblock %}
+
+
+
+
+{% block content1 %}
+    <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#m_pric_product" role="tab" aria-controls="m_pric_product" aria-selected="false">MY Prices</a>
+    </li>
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="tab-pane fade show" id="m_pric_product" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+             <table class="table" id ="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <br/><th scope="col">Category</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Yard Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">City/Disctict/State</th>
+                        <th scope="col">Added On</th>
+                        <th scope="col"></td>
+                        <th scope="col"></td>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                    {% for i in m_price %}
+
+                        {% ifequal i.userid user.username %}
+
+                            <tr>
+                                <td>{{i.category}}</td>
+                                <td>{{i.Product}}</td>
+                                <td>{{i.Yard_name}}</td>
+                                <td>{{i.Price}}</td>
+                                <td>{{i.city}} {{i.district}} {{i.state}}</td>
+                                <td>{{i.date.date}}</td>
+                                <td><a role="button" href="/profile/myard_profile/edit/{{i.id}}"  class="update btn btn-primary" value="UPDATE" style="background-color:green !important;" >UPDATE</a></td>
+                                <td><a href="/profile/myard_profile/delete/{{i.id}}" class="update btn btn-primary" style="background-color:red !important;">DELETE</a></td>
+                            </tr>
+
+
+
+
+                        {% endifequal %}
+
+                    {% endfor %}
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,183 @@
+{% extends 'farmer_profile/farmer_profile.html' %}
+{% load static%}
+
+{% block for_style %}
+    .nav-link{
+    color:black !important;
+    font-weight:bold;
+    font-size:17px;
+}
+.nav-tabs .nav-l {
+    border-bottom-color:black !important;
+}
+
+.nav-tabs .nav-l.active{
+   
+    color:blue !important;
+    border-color:black !important;
+    border-bottom-color:white !important;
+}
+
+{% endblock%}
+
+
+{%block content %}
+<br/><br/>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+                                
+                               
+    <li class="nav-item ">
+    <a class="nav-link nav-l" id="" data-toggle="tab" href="#added_product" role="tab" aria-controls="added_product" aria-selected="false" active>Added Product</a>
+    </li>
+    <li>
+        <a class="nav-link nav-l" id="" data-toggle="tab" href="#sold_product" role="tab" aria-controls="sold_product" aria-selected="false">sold Product</a>
+    </li>
+    <li>
+        <a class="nav-link nav-l" id="" data-toggle="tab" href="#my_order" role="tab" aria-controls="my_order" aria-selected="false">My order</a>
+    </li>
+</ul><br/>
+<div class="row">
+ <div class="col-md-8">
+            <div class="tab-content profile-tab" id="myTabContent">
+    <div class="tab-pane fade show active" id="added_product" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row" style="margin-left:20px;">
+                                    <table class="table" id ="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">Category</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Added On</th>
+                                                <th scope="col"></th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="items">   
+                                        {% for i in crop_p %}
+                                            
+                                            {% ifequal i.userid user.username %}
+                                            
+                                                    <tr>
+                                                         <td>{{i.category}}</td>
+                                                        <td>{{i.name}}</td>
+                                                        
+                                                        <td>{{i.quantity}}</td>
+                                                        <td>{{i.price}}</td>
+                                                        <td>{{i.publish_date}}</td>
+                                                        <td><a role="button" href="/profile/farmer_profile/f_crop/edit/{{i.id}}"  class="update btn btn-primary" value="UPDATE" style="background-color:green !important;" >UPDATE</a></td>
+                                <td><a href="/profile/farmer_profile/f_crop/delete/{{i.id}}" class="update btn btn-primary" style="background-color:red !important;">DELETE</a></td>
+                                                    </tr>
+                                                 
+                                            {% endifequal %}    
+                                        {% endfor %}
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>    
+                            </div>
+
+
+            <div class="tab-pane fade show" id="sold_product" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row" style="margin-left:20px;">
+             <table class="table" id ="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <br/><th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Order Date</th>
+                       
+                        <th scope="col">buyer Details</th>
+                        
+                    </tr>
+                </thead>
+                <tbody id="items">  
+                {% for i in crop_p %}
+                  
+                        {% ifequal i.userid user.username %}
+                             
+                        {% for j in o_crop %}
+                            {% with item=j.item_json %}
+                            {% for key,value in item.items %}
+                             {% ifequal user.username value.3 %}
+                                           
+                            <tr>
+                                <td>{{value.1}}</td>
+                                <td>{{value.0}}</td>
+                                <td>{{value.2}}</td>
+                                <td>{% widthratio j.amount 100 1 %}</td>
+                                <td>{{j.order_date}}</td>
+                                <td>
+                                {% for u_id in u %}
+                                
+                                    {% ifequal u_id.username j.userid %}
+                                    Name : {{u_id.uname}} <br/> Type : {{u_id.type}} <br/> Mobile Number:{{u_id.Mobile_no}}
+                                    
+                                    {% endifequal %}
+                                {% endfor %}
+                                </td>
+
+                                
+                            </tr>{% endifequal %}
+                            {% endfor %}
+
+                            {% endwith %}
+                            {% endfor %}
+                        
+                        {% endifequal %}
+                    
+                {% endfor %}
+                                        
+                </tbody>
+            </table>
+        </div>    
+    </div>
+
+        <div class="tab-pane fade show" id="my_order" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row" style="margin-left:20px;">
+                                    <table class="table" id ="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Order Date</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody id="items">   
+                                        {% for i in o_crop %}
+                                            
+                                            {% ifequal i.userid user.username %}
+                                            {% with item=i.item_json %}
+                                                
+                                                {% for key,value in item.items %}
+                                                    
+                                                    <tr>
+
+                                                        <td>{{value.1}}</td>
+                                                        <td>{{value.0}}</td>
+                                                        <td>{{value.2}}</td>
+                                                        <td>{% widthratio i.amount 100 1 %}</td>
+                                                        <td>{{i.order_date}}</td>
+                                                    </tr>
+                                                    
+                                                {% endfor %}
+                                            
+                                            {% endwith %}
+                                            {% endifequal %}    
+                                        {% endfor %}
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>    
+                            </div>
+
+</div>
+</div>
+</div>
+{% endblock %}

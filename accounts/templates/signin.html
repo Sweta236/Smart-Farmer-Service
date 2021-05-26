@@ -1,0 +1,132 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block title%}
+    signin
+{% endblock %}
+
+{% block stylelink %}
+    <link rel="stylesheet" href="{%static 'farmer-css/style.css'%}">
+	<link rel="stylesheet" href="{%static 'css/style.css'%}">
+{% endblock %}
+
+{% block style %}
+
+#head{
+  margin-top:10px !important;
+}
+* {
+	font-size: 20px;
+}
+.container-user {
+	margin-top: 50px;
+	margin-left: 25%;
+	margin-bottom: 10%;
+	width: 50%;
+	color: white;
+	border-radius: 5px;
+	background-color: #052501;
+	padding: 0px;
+		}
+
+		@media (max-width: 768px) {
+			.container-user {
+				margin-top: 10px;
+				margin-left: 0%;
+				width: 100%;
+			}
+
+			.label {
+				font-size: 15px;
+				font-family: sans-serif;
+				font-weight: 300;
+				letter-spacing: 1px;
+
+			}
+		}
+
+		input[type=text],
+		input[type=password] {
+			border-radius: 4px;
+			border-width: 1;
+			height: 45px;
+			width: 100%;
+			border: 1px solid #ccc;
+		}
+
+		input[type=submit],
+		input[type=reset] {
+			background-color: #4bc714;
+			color: white;
+			margin-top: 10px;
+			margin-left: 10%;
+			margin-right: 10%;
+			padding: 7px 16px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+}
+		input[type=submit]:hover {
+			background-color: #45a049;}
+
+
+		input[type=reset]:hover {
+			background-color: #45a049;
+		}
+{% endblock %}
+
+{% block body %}
+<div class="container-user">
+
+	{% for message in messages %}
+                <div class="alert alert-primary" role="alert">
+                {{message}}
+                </div>
+    {% endfor %}
+
+		<br />
+		<div id="head">
+			<h1>Sign In</h1>
+		</div>
+		<table align="center" cellspacing="15">
+
+			<form method="POST" action="login">
+			{% csrf_token %}
+				<tr>
+					<td class="label">Mobile No:
+					<td>
+						<input type="text" name="name">
+					</td>
+				</tr>
+
+				<tr>
+					<div class="mt-1">
+					<td class="label">Password:
+					<td>
+						<input type="password" name="pass">
+					</td>
+					</div>
+				</tr>
+				<tr>
+					<td></td>
+					<td>
+						<input type="submit" name="submit" value="submit" class="btn">
+						<input type="reset" name="reset" value="reset" class="btn">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="forgot">
+						<a href="#" style="color:white">Forgot Password? |</a>
+						<a href="changepwd.php" style="color:white">change Password</a>
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td class="forgot"><a href="register" style="color:white">If You Don't Have Account Sign Up</a></td>
+
+				</tr>
+			</form>
+		</table>
+	</div>
+
+{% endblock %}

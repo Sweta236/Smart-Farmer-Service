@@ -1,0 +1,58 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+{% block title %}
+    govrnment schema
+{% endblock %}
+
+
+{% block body %}
+
+                      <div class="row mt-4 ml-4">
+
+
+                            <label for="Department"><b style="font-size:20px;">Department :    </b></label>
+                              <table class="table table-hover ">
+                                <thead>
+                                  <tr>
+                                    <td scope="col"></td>
+                                    <td scope="col">section</td>
+                                    <td scope="col">Total Components</td>
+                                    <td scope="col">Year of Application	</td>
+                                    <td scope="col">Details</td>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>1</td>
+                                    <td>Agricultural Schemes</td>
+                                    <td>25</td>
+                                    <td>2021-22</td>
+                                    <td><a href="https://ikhedut.gujarat.gov.in/Public/frm_Public_SchemeDetails.aspx" role="tab" >Click here for details</a></td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>2</td>
+                                    <td>Horticulture Schemes</td>
+                                    <td>25</td>
+                                    <td>2021-22</td>
+                                    <td><a  href="https://ikhedut.gujarat.gov.in/Public/frm_Public_SchemeDetails.aspx" role="tab" >Click here for details</a></td>
+
+                                  </tr>
+
+                                  <tr>
+                                    <td>3</td>
+                                    <td>Gujarat Agro Industries Corporation Ltd.</td>
+                                    <td>25</td>
+                                    <td>2021-22</td>
+                                    <td><a href="https://ikhedut.gujarat.gov.in/Public/frm_Public_SchemeDetails.aspx" role="tab" >Click here for details</a></td>
+
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                        </div>
+
+<br/>
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'profile_base.html' %}
+
+
+{% block homelink %}
+<ul><li class="mx-auto"><a href="/agri/add_agri" style="margin-top:0px; color:white; float:right; margin-right : 0px; font-size:18px; ">Home</a> </li></ul>
+{% endblock %}
+
+
+{% block content1 %}
+    <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#agri_product" role="tab" aria-controls="agri_product" aria-selected="false">Agriculture Products</a>
+    </li>
+    <li>
+        <a class="nav-link" id="" data-toggle="tab" href="#sold_product" role="tab" aria-controls="sold_product" aria-selected="false">sold Products</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="tab-pane fade show" id="agri_product" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+             <table class="table" id ="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <br/><th scope="col">Category</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Companyname</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Price</th>
+
+
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="items">
+                    {% for i in agri_p %}
+                        {% ifequal i.userid user.username %}
+                            <tr>
+                                <td>{{i.category}}</td>
+                                <td>{{i.name}}</td>
+                                <td>{{i.company_name}}</td>
+                                <td>{{i.quantity}}</td>
+                                <td>{{i.price}}</td>
+                                <td>{{i.publish_date.date}}</td>
+
+                                <td><a role="button" href="/profile/agri_profile/edit/{{i.id}}"  class="update btn btn-primary" value="UPDATE" style="background-color:green !important;" >UPDATE</a></td>
+                                <td><a href="/profile/agri_profile/delete/{{i.id}}" class="update btn btn-primary" style="background-color:red !important;">DELETE</a></td>
+                            </tr>
+                        {% endifequal %}
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="tab-pane fade show" id="sold_product" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+             <table class="table" id ="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <br/><th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">buyer Details</th>
+
+                    </tr>
+                </thead>
+                <tbody id="items">
+
+                    {% for j in o_agri %}
+
+                        {% with item=j.item_json %}
+                            {% for key,value in item.items %}
+                                {% ifequal user.username value.3 %}
+                                <tr>
+
+                                    <td>{{value.1}}</td>
+                                    <td>{{value.0}}</td>
+                                    <td>{{value.2}}</td>
+
+
+
+
+                                        <td>{% widthratio j.amount 100 1 %}</td>
+
+
+                                        <td>{% for u_id in u %}
+
+                                        {% ifequal u_id.username j.userid %}
+                                        Name : {{u_id.uname}} <br/> Type : {{u_id.type}} <br/> Mobile Number:{{u_id.Mobile_no}}
+
+                                        {% endifequal %}
+
+                                        {% endfor %}</td>
+
+                                  </tr>
+
+
+                                   {% endifequal %}
+                            {% endfor %}
+                        {% endwith %}
+
+
+                            <!--{% with item=j.item_json %}
+                            {% for key,value in item.items %}
+                                {% ifequal user.username value.3 %}
+                                <tr>
+                                    <td>{{value.1}}</td>
+                                    <td>{{value.0}}</td>
+                                    <td>{{value.2}}</td>
+
+                                    <td> {% widthratio j.amount 100 1 %}</td>
+                                    <td>
+                                    {% for u_id in u %}
+
+                                    {% ifequal u_id.username j.userid %}
+                                    Name : {{u_id.uname}} <br/> Type : {{u_id.type}} <br/> Mobile Number:{{u_id.Mobile_no}}
+
+                                    {% endifequal %}
+
+                                    {% endfor %}
+                                    </td>
+
+
+                                </tr>
+                            {% endifequal %}
+                            {% endfor %}
+
+                            {% endwith %}-->
+                            {% endfor %}
+
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

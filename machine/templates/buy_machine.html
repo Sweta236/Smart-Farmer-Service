@@ -1,0 +1,219 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+
+{% block title %}Buy Machine {% endblock %}
+
+{% block style %}
+#head{
+  margin-top:40px !important;
+}
+.main-menu ul>li a{
+  padding : 0px 0px !important;
+}
+span.cart-item {
+    position: relative;
+    top: -16px;
+    font-family: sans-serif;
+    right: 9px;
+    font-size: 20px;
+    color: #30880;
+    border-radius: 36px;
+    background: #0a17048c;
+}
+
+.cart_machine{
+
+  width:250px;
+}
+.plus{
+  width:50px;
+}
+.minus{
+  width: 50px;
+}
+{% endblock %}
+
+
+
+
+{% block nav2 %}
+  <ul><li><a href="/farmer" style="color:#4bc714; font-size:18px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+  <a href="/profile/farmer_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-14%;" aria-hidden="true"></i></a><br/><a href="/profile/farmer_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-1%; ">My Profile</a></li></ul>
+  <a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+{% block navlist %}
+<div class="row">
+                    <div class="col-md-12 location_icon_bottum" style="height:67px;">
+                       <div class="row">
+                            <div class="col-md-8">
+                                <div class="menu-area">
+                                    <div class="limit-box">
+                                        <nav class="main-menu">
+                                            <ul class="menu-area-main">
+                                                <li><a href="#">Home</a> </li>
+                                                <li><a href="/machine/buy_machine" data-filter="all">All</a> </li>
+                                                {% for c in categories %}
+                                                <li><a href="/machine/buy_machine/?category={{c.id}}" >{{c.cname}}</a></li>
+                                                {% endfor %}
+                                                <li><a href="/machine/buy_machine/cart_machine"><button type="button" id="popcart_machine" class="btn btn-secondary mx-2" data-container="body" data-html="true" data-toggle="popover"  data-placement="bottom"  data-trigger="hover" data-content=" ">
+                                                    <i class="fa fa-shopping-cart" aria-hidden="true" ><span class="cart-item" id="cart_machine">0</span></i></button></a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                                <form method="get" class="search">
+                                    <input class="form-control" type="text" placeholder="Search" name="search" id="search">
+                                    <button><img src="{% static 'images/search_icon.png' %}"></button>
+                                </form>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+{% endblock %}
+
+
+
+{% block body %}
+ <div id="head">
+<h1>  Take Machine On Rent </h1>
+  </div>
+
+  <div class="container-fluid mb-4 row justify-content-center row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+    {% for i in products %}
+    <div class="col-md-2.5 card my-3 mx-2" style="width: 18rem;" >
+
+    <p id="imagepr{{i.id}}" ><img src='/media/{{i.image}}' class="card-img-top"  alt="..."></p>
+        <div class="card-body">
+          <h5 class="card-title" id="namepr{{i.id}}">{{i.name}}</h5>
+          <p class="card-text">
+            <h6>{{i.key_players}}</h6>
+            <h6 class="card-title" >Price : <span id="pricepr{{i.id}}">{{i.Approx_price}}</span></h6>
+          </p>
+
+          <span id="divpr{{i.id}}" class="divpr">
+            <button id="pr{{i.id}}" class="btn btn-primary float-right cart_machine"  >Cart</button>
+          </span>
+          <span style="display:none" id="useridpr{{i.id}}">{{i.userid}}</span>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
+{% block script %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" ></script>
+
+
+  <script>
+
+
+    //find out cart_machine  items from localstorage
+    if(localStorage.getItem('cart_machine') == null){
+      var cart_machine = {};
+    }
+    else{
+      cart_machine = JSON.parse(localStorage.getItem('cart_machine'));
+      updateCart(cart_machine);
+
+    }
+    //increment item when cart_machine button is clicked
+    //$('.cart_machine').click(function(){
+    $('.divpr').on('click','button.cart_machine',function(){
+        var idstr = this.id.toString();
+
+        if(cart_machine[idstr] != undefined){
+          qty = cart_machine[idstr][0]+1;
+        }
+        else{
+          qty = 1;
+          name = document.getElementById('name'+idstr).innerHTML;
+          price = document.getElementById('price'+idstr).innerHTML;
+          u_id = document.getElementById('userid'+idstr).innerHTML;
+          cart_machine[idstr] = [qty,name,price,u_id];
+        }
+        updateCart(cart_machine);
+
+    });
+
+
+$('#popcart_machine').popover();
+    //function for display items at popover cart_machine
+    updatePopover(cart_machine);
+    function updatePopover(cart_machine){
+      console.log('we are inside popver');
+      var popstr = "";
+      popstr = popstr + "<h5>cart for your items</h5> <div class='mx-2 my-2'>";
+      var i=1;
+      for(var item in cart_machine){
+        popstr = popstr + "<b>" + i + "</b>.  ";
+        popstr = popstr + document.getElementById('name'+item).innerHTML.slice(0,20)  + ".   QTY: " + cart_machine[item][0] + '<br>';
+        i=i+1;
+      }
+      ///popstr = popstr + `</div> <a href="/agri/chech"><button type="button" class="btn btn-primary" id="checkout">Checkout</button></a> <button type="button" class="btn btn-primary"  id="clearCart">clearcart_machine</button>`
+      document.getElementById('popcart_machine').setAttribute('data-content',popstr);
+      $('#popcart_machine').popover('show');
+    }
+
+    //for clear cart_machine
+    /*function clearCart(){
+      cart_machine = JSON.parse(localStorage.getItem('cart_machine'));
+      for (var item in cart_machine){
+        document.getElementById('div' + item).innerHTML = '<button id="'+ item +'" class="btn btn-primary float-right cart_machine" >Cart</button>';
+      }
+      localStorage.clear();
+      cart_machine = {};
+      updateCart(cart_machine);
+    }
+    */
+
+    //update cart_machine plus minus display
+    function updateCart(cart_machine){
+      var sum = 0;
+      for(var item in cart_machine){
+        sum = sum + cart_machine[item][0];
+        document.getElementById('div'+item).innerHTML = "<button style='margin-left:0px' id='minus" +item+ "' class='btn btn-primary minus'>-</button><b><span style='margin-left:60px' id='val" +item+"''>" + cart_machine[item][0]  + "<span></b><button id='plus" +item+"' class='btn btn-primary float-right plus'>+</button>";
+      }
+      localStorage.setItem('cart_machine',JSON.stringify(cart_machine));
+      document.getElementById('cart_machine').innerHTML = sum;
+      updatePopover(cart_machine);
+    }
+
+    //when click plus and minus , change cart_machineand display it
+    $('.divpr').on("click","button.minus",function(){
+      console.log("minus clicked");
+      a = this.id.slice(7, );
+      cart_machine['pr' + a][0] = cart_machine['pr' + a][0] - 1;
+      if (cart_machine['pr' + a][0] == 0){
+        document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart_machine float-right">Cart</button>';
+        delete cart_machine['pr'+a];
+      }
+      else{
+        document.getElementById('valpr' + a).innerHTML = cart_machine['pr' + a][0];
+      }
+      updateCart(cart_machine);
+    });
+
+      $('.divpr').on("click","button.plus",function(){
+      console.log("plus clicked");
+      a = this.id.slice(6, );
+      cart_machine['pr'+a][0] = cart_machine['pr'+a][0] + 1;
+      Math.max(0,cart_machine['pr'+a][0])
+      document.getElementById('valpr'+a).innerHTML = cart_machine['pr'+a][0];
+      updateCart(cart_machine);
+    });
+    </script>
+
+{% endblock %}

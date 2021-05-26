@@ -1,0 +1,424 @@
+<html>
+<head>
+    <title>Profile</title>
+{% load static %}
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="{% static 'css/user_profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" >
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+    <link rel="stylesheet" href="{% static 'css/style2.css'%}">
+
+<style>
+.head_title{
+    font-size:50px !important;
+    margin-left:40%;
+    color:black;
+}
+.modal-backdrop{
+    opacity:0.5;
+}
+input{
+    border-color:black !important;
+    border-radius:5px !important;
+}
+.nav-tabs{
+    color:black;
+    font-weight:bold;
+    font-size:17px;
+}
+.profile-head .nav-tabs .nav-link {
+    border-bottom-color:black;
+}
+
+.profile-head .nav-tabs .nav-link.active{
+
+    color:blue;
+    border-color:black;
+    border-bottom-color:white !important;
+}
+
+label{
+    color:black;
+    font-weight:bold;
+}
+.update{
+    padding:5px 10px !important;
+    color:white !important;
+}
+
+</style>
+<!------ Include the above in your HEAD tag ---------->
+</head>
+
+<body>
+
+
+    <!-- loader  -->
+
+
+    <!-- end loader -->
+    <header>
+        <!-- header inner -->
+        <div class="header">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col logo_section">
+                        <div class="full">
+                            <div class="center-desk">
+                                <div class="logo">
+                                    <a href="home"><img src="{% static 'images/smartlogo.png'%}" alt="#"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                        <div class="location_icon_bottum_tt">
+                            <ul>
+
+                                <li><img src="{% static 'icon/loc1.png'%}" />Location</li>
+                                <li><img src="{% static 'icon/email1.png'%}" />demo@gmail.com</li>
+
+                                <li><img src="{% static 'icon/call1.png'%}" />(+91)9876543109</li>
+                            </ul>
+                        </div>
+   {% block homelink %}{% endblock %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+<!--<header>
+         header inner
+                <div class="header">
+
+			<div class="container">
+				<div class="row">
+
+					<div class="full">
+						<div class="center-desk">
+							<div class="logo">
+								<a href="home"><img src="{% static 'images/smartlogo.png'%}" alt="#"></a>
+							</div>
+							<nav class="main-menu">
+								<ul class="menu-area-main">
+                                {% block profile_nav %}
+
+                                {% endblock %}
+								</ul>
+							</nav>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<br />
+            </div>
+        </div>
+        end header inner -->
+  </header>
+<div class="container emp-profile p-4 border ">
+        <div class="row">
+            <div class="head_title">
+                <b>My Profile</b>
+            </div>
+
+            <div class="col-md-4">
+                <input type="submit" class="profile-edit-btn btn btn-primary" data-target="#editprofile" data-toggle="modal" name="btnAddMore" value="Edit Profile" style="font-size:15px !important; float:right; "/>
+                        <div class="modal" id="editprofile">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3> Edit Profile </h3>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</buttn>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post">{% csrf_token%}
+                                            <div class="col-md-12">
+                                                <label for="inputName" class="form-label">Name</label>
+                                                <input type="text" class="form-control" id="uname" name="uname" value="{{user.uname}}" placeholder="Name">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="inputEmail4" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" placeholder="Email">
+                                            </div>
+
+                                            <div class="col-12">
+                                                <label for="inputAddress" class="form-label">Address</label>
+                                                <input type="text" class="form-control" id="address" name="address" value="{{user.address}}" placeholder="abc Main St">
+                                            </div>
+                                            <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="inputCity" class="form-label">City</label>
+                                                <input type="text" class="form-control" id="city" name="city" value="{{user.city}}" placeholder"city">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="inputState" class="form-label">State</label>
+                                                <input type="text" class="form-control" id="state" name="state" value="{{user.state}}" placeholder"state">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label for="inputZip" class="form-label">Zip</label>
+                                                <input type="text" class="form-control" id="zip_code" value="{{user.zipcode}}" name="zip_code">
+                                            </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <label for="inputPhone" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="mbl" name="mbl" value="{{user.Mobile_no}}" placeholder="phone" readonly>
+                                            </div>
+
+                                            <!--<div class="col-12">
+                                                <center><button type="submit" class="btn btn-primary"> Save </button></center>
+                                            </div>-->
+                                            <div class="col-12">
+                                                <center><button type="submit" class="btn btn-primary" name="editProfile"> Save </button></center>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+
+        </div>
+
+
+            <div class="row" style="margin-left:5% !important;">
+                    <!--<div class="col-md-4">
+                        <form method="post">{% csrf_token%}
+                        <div class="profile-img">
+                            <img src="{% static 'images/profile_pic.jpg' %}" alt="" id="image" name="image" style="width:75%;"/>
+                            <div class="custom-file mt-3 mb-3">
+                                <input id="fileInput" type="file" style="display: none;" onchange="previewImage(event)">
+
+                                <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD IMAGE" onclick="document.getElementById('fileInput').click();" style="width:75% !important; margin-left:0px !important;"required>
+
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block mx-auto" value="SAVE IMAGE"  style="width:75% !important; margin-left:0px !important;"required>
+                    </form>
+                    </div>-->
+
+
+
+                    <div class="col-md-8">
+                        <div class="profile-head">
+                                    <h5 style="font-size:30px;">
+                                        {{user.uname}}
+                                    </h5>
+                                    <h6>
+                                        {{user.type}}
+                                    </h6>
+                                    <h6>Last Login : {{user.last_login}}</h6>
+                                    <h6>Last Update : {{user.update_on}}</h6>
+
+                                    <br/><br/>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                {% block content1 %}
+
+                                {% endblock %}
+                                <!--<li class="nav-item">
+                                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Crops</a>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="{% static 'images/profile_pic.jpg' %}" alt="" id="image" name="image" style="width:35%; height:35%; float:right; margin-right:15% !important;"/><br/><br/><br/><br/>
+                        <input type="submit" class="profile-edit-btn btn btn-primary" data-target="#upload_img" data-toggle="modal" name="img" value="Upload Image" style="font-size:10px !important; float:right; width:35% !important; padding:5px !important; margin-right:15% !important; "/>
+
+                        <div class="modal" id="upload_img">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3> Upload or Change Profile Image </h3>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</buttn>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post">{% csrf_token%}
+                                            <div class="col-md-12">
+                                            <img src="{% static 'images/profile_pic.jpg' %}" alt="" id="image" name="image" style="width:75%;"/>
+                                                <div class="custom-file mt-3 mb-3">
+                                                    <input id="fileInput" type="file" style="display: none;" onchange="previewImage(event)">
+
+                                                    <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD IMAGE" onclick="document.getElementById('fileInput').click();" style="width:75% !important; margin-left:0px !important;"required>
+
+                                                </div>
+                                            </div>
+                                            <input type="submit" class="btn btn-primary btn-block mx-auto" value="SAVE IMAGE"  style="width:75% !important; margin-left:0px !important;"required>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+            </div>
+
+
+
+
+
+        <div class="row" style="margin-left:5% !important;">
+                    <!--<div class="col-md-4">
+
+                    </div>-->
+
+                    <div class="col-md-8">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <br/><label>Username</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <br/><p>{{user.username}}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.uname}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Type</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.type}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.email}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.Mobile_no}}</p>
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Address</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.address}} , {{user.city}} , {{user.state}} , {{user.zipcode}}</p>
+                                            </div>
+                                        </div>
+                                            <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Phone</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.Mobile_no}}</p>
+                                            </div>
+                                        </div>
+                                         <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Date joined</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{user.date_joined}}</p>
+                                            </div>
+                                        </div>
+
+
+                            </div>
+                            {% block content %}
+
+                            {% endblock %}
+                            <!--<div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <table class="table" id ="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">Total</th>
+                                                <th scope="col">Order Date</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="items">
+                                        {% for i in order_crop %}
+
+                                            {% ifequal i.userid user.username %}
+                                            {% with item=i.item_json %}
+
+                                                {% for key,value in item.items %}
+
+                                                    <tr>
+
+                                                        <td>{{value.1}}</td>
+                                                        <td>{{value.0}}</td>
+                                                        <td>{{value.2}}</td>
+                                                        <td>{{i.amount}}</td>
+                                                        <td>{{i.order_date}}</td>
+                                                    </tr>
+
+                                                {% endfor %}
+
+                                            {% endwith %}
+                                            {% endifequal %}
+                                        {% endfor %}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+    </div>
+
+    <script>
+
+      function previewImage(event){
+        var reader = new window.FileReader();
+        var img = document.getElementById("image");
+
+        reader.onload = function(){
+          if(reader.readyState == 2){
+            img.src = reader.result;
+          }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+      </script>
+      <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    {% block script %}
+
+    {% endblock %}
+  </script>
+</body>
+</html>

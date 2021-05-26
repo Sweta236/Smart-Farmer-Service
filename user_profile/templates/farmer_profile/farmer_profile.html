@@ -1,0 +1,198 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Farmer Profile</title>
+
+    <!-- plugins:css -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" >
+     <link href="{% static 'css/user_profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style2.css'%}">
+
+    <link rel="stylesheet" href="{%static 'assets/vendors/mdi/css/materialdesignicons.min.css'%}">
+    <link rel="stylesheet" href="{%static 'assets/vendors/css/vendor.bundle.base.css'%}">
+   
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <!-- endinject -->
+    <!-- Layout styles -->
+    <link rel="stylesheet" href="{%static 'assets/css/style.css'%}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" href="{%static 'assets/images/favicon.ico'%}" />
+    <style>
+.text-primary{color:white !important ;}
+
+        #sidebar,#unav,#logo{
+          background:#052501;
+          color:white;
+        }
+        body{
+            font-family: poppins !important;
+            font-weight:normal;
+
+        }
+.sidebar .nav .nav-item.active{
+background-color : gray !important;
+
+}
+.sidebar .nav .nav-item:hover{
+
+background-color:gray;
+
+}
+
+
+
+        .btn{
+    color:black !important;
+    background:transparent !important;
+    
+}
+.btn:hover{
+    background-color:#052501 !important;
+    color:white !important;
+}
+.modal-content{
+    background-color:white !important;
+}
+.head_title{
+    font-size:50px !important;
+    margin-left:40%;
+    color:black;
+}
+.modal-backdrop{
+    opacity:0.5;
+}
+input{
+    border-color:black !important;
+    border-radius:5px !important;
+}
+
+label{
+    color:black;
+    font-weight:bold;
+}
+.update{
+    padding:5px 10px !important;
+    color:white !important;
+}
+
+
+
+        {% block for_style %}
+        {% endblock %}
+
+    </style>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_navbar.html -->
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row" id="unav">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center0 " id="logo">
+          <a class=" p-2 brand-logo" href="index.html"><img src="{%static 'images/smartlogo.png'%}" alt="logo" /></a>
+          </div>
+        <div class="navbar-menu-wrapper d-flex align-items-stretch">
+          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+            <span class="mdi mdi-menu"></span>
+          </button>
+          <div class="search-field d-none d-md-block">
+            <form class="d-flex align-items-center h-100" action="#">
+              <div class="input-group">
+                <div class="input-group-prepend bg-transparent">
+                  <i class="input-group-text border-0 mdi mdi-magnify"></i>
+                </div>
+                <input type="text" class="form-control text-white bg-transparent border-0" placeholder="Search ">
+              </div>
+            </form>
+          </div>
+          
+
+        
+          <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+            <span class="mdi mdi-menu"></span>
+          </button>
+        </div>
+        
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">
+        <!-- partial:partials/_sidebar.html -->
+        <nav class="sidebar sidebar-offcanvas" id="sidebar" >
+          <ul class="nav">
+            <li class="nav-item nav-profile">
+              <a href="/farmer" class="nav-link">
+                 
+                  <a href="/farmer"><span class=" font-weight-bold text-primary">Home</span></a>
+                
+              </a>
+            </li>
+
+            <li class="nav-item nav-profile ">
+              <a href="/profile/farmer_profile/f_profile" class="nav-link ">
+                
+                  <a href="/profile/farmer_profile/f_profile"><span class="font-weight-bold text-primary" >Farmer</span></a>
+                
+         
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                <span class="menu-title text-primary font-weight-bold">Dashboard</span>
+                <i class="mdi mdi-home menu-icon"></i>
+              </a>
+
+              <div class="collapse" id="ui-basic">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item"> <a href="/profile/farmer_profile/f_crop" class="nav-link text-primary " >Crop Product </a></li>
+                  <li class="nav-item "> <a href="/profile/farmer_profile/f_agri" class="nav-link text-primary " href="crop">Agriculture Product</a></li>
+                  <li class="nav-item "> <a  href="/profile/farmer_profile/f_machine" class="nav-link text-primary " href="crop">Machine </a></li>
+              
+                </ul>
+              </div>
+            </li>
+            
+          </ul>
+        </nav>
+        <!-- partial -->
+        <div class="main-panel">
+         {% block content%} 
+
+         
+         {% endblock %}
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+        
+          <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+      </div>
+      <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+    <script src="{%static 'assets/vendors/js/vendor.bundle.base.js'%}"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page -->
+    <script src="{%static 'assets/vendors/chart.js/Chart.min.js'%}"></script>
+    <!-- End plugin js for this page -->
+    <!-- inject:js -->
+    <script src="{%static 'assets/js/off-canvas.js'%}"></script>
+    <script src="{%static 'assets/js/hoverable-collapse.js'%}"></script>
+    <script src="{%static 'assets/js/misc.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <!-- endinject -->
+    <!-- Custom js for this page -->
+    <script src="{%static 'assets/js/dashboard.js'%}"></script>
+    <script src="{%static 'assets/js/todolist.js'%}"></script>
+    <!-- End custom js for this page -->
+  </body>
+</html>

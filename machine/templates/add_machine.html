@@ -1,0 +1,169 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+{% block title %}
+    Add Machine for rent
+{% endblock %}
+
+{% block style %}
+@media (max-width: 992px) {
+  .sidebar{
+    width:92% !important;
+    padding:20px;
+  }
+  .sidebar a {
+  display: inline !important;
+
+  }
+}
+.content_icon .tm-upload-icon {width:65px !important;}
+
+{% endblock %}
+
+
+
+{% block nav2 %}
+  <ul><li><a href="/farmer" style="color:#4bc714; font-size:18px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+  <a href="/profile/farmer_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-14%;" aria-hidden="true"></i></a><br/><a href="/profile/farmer_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-1%; ">My Profile</a></li></ul>
+  <a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+
+
+{% block body %}
+<div id="head">
+<h1> Add Machine for Rent </h1>
+  </div>
+
+  <div class="row">
+
+  <div class="sidebar  float-left">
+  {% for c in categories %}
+    <a href="?category={{c.id}}">{{c.cname}}</a>
+  {% endfor %}
+  </div>
+
+
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mx-auto">
+          <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+
+            <div class="row tm-edit-product-row rounded border">
+              <div class="col-xl-6 col-lg-6 col-md-12">
+
+              <center><h2>Category : {{cat.cname}}</h2></center>
+
+                <form action="" class="tm-edit-product-form" method="post" enctype="multipart/form-data">{% csrf_token%}
+                <input id="category" type="hidden"  name="category_id"  class="form-control validate" required readonly value="{{cat.id}}"/>
+
+                  <div class="form-group mb-3">
+                    <label for="name">Product Name</label>
+                    <input id="name" type="text" name="name" placeholder="Enter Product Name" class="form-control validate" required/>
+                  </div>
+
+
+                    <div class="form-group mb-3">
+                    <label for="name"> Category </label>
+                    <input id="category" type="text" name="category"  class="form-control validate" required readonly value="{{cat.cname}}"/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                    <label for="name"> Key Players </label>
+                    <input id="key_players" type="text" name="key_players"  class="form-control validate" placeholder="Enter Key Players" required />
+                    </div>
+
+                  <div class="form-group mb-3">
+                    <label for="description">Description</label>
+                    <textarea class="form-control validate" rows="3" name="Description" placeholder="Describe your product" required></textarea>
+                  </div>
+
+
+                  <div class="row">
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label for="quantity">Quantity</label>
+                        <input id="qtn" name="quantity" type="number" placeholder="Quantity" class="form-control validate" required/>
+
+                      </div>
+                      <div class="form-group mb-3 col-xs-12 col-sm-6">
+                        <label for="price">Approx Price</label>
+                        <input id="price" name="price" type="text" placeholder="Price pr kg" class="form-control validate" required/>
+
+                      </div>
+                  </div>
+
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-12 mx-auto mb-4">
+
+                <div class="tm-product-img-dummy mx-auto">
+
+                  <div class="image">
+                    <img src=" " width="0" height="0" alt="" id="image" name = "image" />
+                  </div>
+
+                  <div class="content_icon">
+
+                    <i class="fa fa-cloud-upload-alt tm-upload-icon" onclick="document.getElementById('fileInput').click();"></i>
+                    <div class="text">No file chosen!</div>
+                  </div>
+
+                </div>
+
+                <div class="custom-file mt-3 mb-3">
+                  <input id="fileInput" type="file" style="display: none;"  name="image" onchange="previewImage(event)"  required>
+
+                  <input type="button" class="btn btn-primary btn-block mx-auto" value="UPLOAD PRODUCT IMAGE"
+                    onclick="document.getElementById('fileInput').click();" required>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Product Now</button>
+              </div>
+               </form>
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+{% endblock %}
+
+
+
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" ></script>
+
+{% load static %}
+   <script src="{% static '/buy_agri/js/all.js' %}" ></script>
+
+    <script>
+      function previewImage(event){
+        var reader = new window.FileReader();
+        var img = document.getElementById("image");
+
+        reader.onload = function(){
+          if(reader.readyState == 2){
+            img.src = reader.result;
+          }
+        }
+        reader.readAsDataURL(event.target.files[0]);
+      }
+
+    {% if messages %}
+        {% for mess in messages %}
+          alert("{{mess}}");
+        {% endfor %}
+      {% endif %}
+
+      </script>
+
+
+{% endblock %}

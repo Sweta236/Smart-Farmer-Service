@@ -1,0 +1,119 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+{% block title %}
+    search market price
+{% endblock %}
+
+
+{% block nav2 %}
+  <ul><li><a href="/farmer" style="color:#4bc714; font-size:18px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+  <a href="/profile/farmer_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-14%;" aria-hidden="true"></i></a><br/><a href="/profile/farmer_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-1%; ">My Profile</a></li></ul>
+  <a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+
+{% block body %}
+ <div id="head">
+<h1> Search Market Price  </h1>
+  </div>
+<form action="" class="tm-edit-product-form" method="get">
+                      <div class="row mt-4 ml-4">
+
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label >Category</label>
+                            <select name="category" class="custom-select" id="select1">
+                              <option selected>Choose...</option>
+                              {% for cat in categories %}
+                                <option value="{{cat.cname}}">{{cat.cname}}</option>
+                              {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="form-group  col-sm-2 col-lg-2">
+                            <label >Product</label>
+                            <select name="name" class="custom-select" id="select2">
+                              <option selected>Choose...</option>
+                              {% for c in crop_pro %}
+                                <option value="{{c.name}}">{{c.name}}</option>
+                              {% endfor %}
+                            </select>
+
+                        </div>
+
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label >Yard Name</label>
+                            <input id="yname" name="yname" type="text" placeholder="Enter Yard Name..." class="form-control validate" />
+                        </div>
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label for="city">City</label>
+                            <input id="city" name="city" type="text" placeholder="City..." class="form-control validate" />
+                        </div>
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label for="District">District</label>
+                            <input id="District" name="District" type="text" placeholder="District..." class="form-control validate" />
+                        </div>
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label for="State">State</label>
+                            <input id="State" name="State" type="text" placeholder="State..." class="form-control validate" />
+                        </div>
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label >minimum Date</label>
+                            <input id="mindate" name="mindate" type="date" placeholder="minimum date..." class="form-control validate" />
+                        </div>
+                        <div class="form-group col-sm-2 col-lg-2">
+                            <label>Maximum Date</label>
+                            <input id="maxdate" name="maxdate" type="date" placeholder="maximum date..." class="form-control validate" />
+                        </div>
+
+
+                        <div class="form-group  col-sm-3 col-lg-3 p-3 ">
+                          <button type="submit" class="btn btn-primary btn-block text-uppercase ">Search</button>
+                          </div>
+
+                      </div>
+                    </form>
+
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Category</th>
+      <th scope="col">product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Yard Name</th>
+      <th scope="col">city</th>
+      <th scope="col">District</th>
+      <th scope="col">State</th>
+      <th scope="col">Publish Date</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for m in queryset %}
+    <tr>
+      <td>{{m.category}}</td>
+      <td>{{m.Product}}</td>
+      <td>{{m.Price}}</td>
+      <td>{{m.Yard_name}}</td>
+      <td>{{m.city}}</td>
+      <td>{{m.district}}</td>
+      <td>{{m.state}}</td>
+      <td>{{m.date}}</td>
+    </tr>
+     {% endfor %}
+
+
+  </tbody>
+</table>
+
+    <div>
+      {% if messages %}
+        {% for mess in messages %}
+          {{mess}}
+        {% endfor %}
+      {% endif %}
+    </div>
+{% endblock %}

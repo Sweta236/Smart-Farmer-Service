@@ -1,0 +1,116 @@
+{% extends './basic.html' %}
+
+{% load static %}
+
+{% block title %}
+    add market price
+{% endblock %}
+
+{% block style %}
+.content_icon .tm-upload-icon {width:65px !important;}
+{% endblock %}
+
+
+{% block nav2 %}
+  <ul><li><a href="/marketprice/add_mprice" style="color:#4bc714; font-size:18px; float:right; margin-top:-2%; margin-right:10%;" >Home</a>
+  <a href="/profile/myard_profile" ><i  class="fa fa-user" style="color:#4bc714; font-size:30px; float:right; margin-top:-35px; margin-right:-14%;" aria-hidden="true"></i></a><br/><a href="/profile/myard_profile" style="color:#4bc714; font-size:15px; float:right; margin-top:-35px; color:white; margin-right:-1%; ">My Profile</a></li></ul>
+  <a style="color:#fff; font-size:18px; float:right; margin-top:-55px; margin-right:-10%;">Logout</a>
+{% endblock %}
+
+
+
+
+
+{% block body %}
+ <div id="head">
+<h1> Add Market Price  </h1>
+  </div>
+
+  <div class="row">
+
+  <div class="sidebar  float-left">
+  {% for c in categories %}
+    <a href="?category={{c.id}}">{{c.cname}}</a>
+  {% endfor %}
+  </div>
+
+
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 mx-auto">
+        <div class="tm-bg-primary-dark tm-block tm-block-h-auto ">
+            <div class="row tm-edit-product-row border">
+              <div class="col border rounded p-4">
+
+              <center><h2>Category : {{cat.cname}}</h2></center>
+                    <form action="" class="tm-edit-product-form" method="post" id="form">{% csrf_token%}
+                    <input id="category" type="hidden"  name="cat"  class="form-control validate" required readonly value="{{cat.id}}"/>
+
+                    <div class="form-group mb-3">
+                      <label for="category">Category</label>
+                      <input type="text" name="category" class="form-control validate" value="{{cat.cname}}" readonly/>
+                    </div>
+
+                    <div class="form-group mb-3">
+                      <label>Product Name</label>
+                      <select class="custom-select" name="product" id="select2">
+                        <option>---Select Product---<option>
+                        {% for c in crop_product %}
+                          <option value="{{c.id}}">{{c.name}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+
+
+                        <div class="form-group mb-3">
+                            <label for="price">Product Price</label>
+                            <input id="price" type="number" name="price" placeholder="Enter Product Price" class="form-control validate" required/>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <label>Yard Name</label>
+                            <input id="yname" name="yname" type="text" placeholder="Enter Yard Name..." class="form-control validate" required/>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="city">City</label>
+                                <input id="city" name="city" type="text" placeholder="city..." class="form-control validate" required/>
+                            </div>
+
+                             <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="district">District</label>
+                                <input id="district" name="district" type="text" placeholder="District..." class="form-control validate" required/>
+                            </div>
+
+                            <div class="form-group mb-3 col-xs-12 col-sm-4">
+                                <label for="state">State</label>
+                                <input id="state" name="state" type="text" placeholder="state..." class="form-control validate" required/>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Price Now</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block script %}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    {% if messages %}
+        {% for mess in messages %}
+          alert("{{mess}}");
+        {% endfor %}
+      {% endif %}
+  </script>
+{% endblock %}
